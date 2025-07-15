@@ -25,6 +25,8 @@ export const protectRoute = async (req, res, next) => {
 
     req.user = user;
 
+    console.log("JWT_SECRET_KEY:", process.env.JWT_SECRET_KEY);
+
     next();
   } catch (error) {
     console.log("Error is protectRoute Middleware: ", error);
