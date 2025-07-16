@@ -3,7 +3,7 @@ import useAuthUser from "../hooks/useAuthUser";
 import { useState } from "react";
 import toast, { LoaderIcon } from "react-hot-toast";
 import { completeOnboarding } from "../lib/api";
-import { CameraIcon, Loader, MapPinIcon, ShipWheelIcon, ShuffleIcon } from "lucide-react";
+import { CameraIcon, MapPinIcon, ShipWheelIcon, ShuffleIcon } from "lucide-react";
 import { LANGUAGES } from "../constants";
 
 const OnboardingPage = () => {

@@ -5,7 +5,7 @@ import HomePage from "./pages/HomePage.jsx";
 import OnboardingPage from "./pages/OnboardingPage.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
-import NotificationPage from "./pages/NotificationPage.jsx";
+import NotificationsPage from "./pages/NotificationsPage.jsx";
 import CallPage from "./pages/CallPage.jsx";
 import ChatPage from "./pages/ChatPage.jsx";
 import PageLoader from "./components/PageLoader.jsx";
@@ -45,7 +45,18 @@ const App = () => {
           path="/login"
           element={!isAuthenticated ? <LoginPage /> : <Navigate to={!isOnboarded ? "/onboarding" : "/"} />}
         />
-        <Route path="/notifications" element={isAuthenticated ? <NotificationPage /> : <Navigate to="/login" />} />
+        <Route
+          path="/notifications"
+          element={
+            !isAuthenticated && isOnboarded ? (
+              <Layout showSidebar={true}>
+                <NotificationsPage />
+              </Layout>
+            ) : (
+              <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
+            )
+          }
+        />
         <Route
           path="/onboarding"
           element={isAuthenticated ? !isOnboarded ? <OnboardingPage /> : <Navigate to="/" /> : <Navigate to="/login" />}
