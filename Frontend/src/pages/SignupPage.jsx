@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Languages } from "lucide-react";
-import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { signup } from "../lib/api";
+import useSignup from "../hooks/useSignup";
 
 const SignupPage = () => {
   const [signupData, setSignupData] = useState({
@@ -11,16 +10,18 @@ const SignupPage = () => {
     password: "",
   });
 
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
-  const {
-    mutate: signupMutation,
-    isPending,
-    error,
-  } = useMutation({
-    mutationFn: signup,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["authUser"] }),
-  });
+  // const {
+  //   mutate: signupMutation,
+  //   isPending,
+  //   error,
+  // } = useMutation({
+  //   mutationFn: signup,
+  //   onSuccess: () => queryClient.invalidateQueries({ queryKey: ["authUser"] }),
+  // });
+
+  const { signupMutation, isPending, error } = useSignup();
 
   const handleSignup = (e) => {
     e.preventDefault();
@@ -28,10 +29,7 @@ const SignupPage = () => {
   };
 
   return (
-    <div
-      className="h-screen flex items-center justify-center p-4 sm:p-6 md:p-8"
-      data-theme="forest"
-    >
+    <div className="h-screen flex items-center justify-center p-4 sm:p-6 md:p-8" data-theme="forest">
       <div className="border border-primary/25 flex flex-col lg:flex-row w-full max-w-5xl mx-auto bg-base-100 rounded-xl shadow-lg overflow-hidden">
         {/* Signup form - left side */}
 
@@ -56,9 +54,7 @@ const SignupPage = () => {
               <div className="space-y-4">
                 <div>
                   <h2 className="text-xl font-semibold">Create an account</h2>
-                  <p className="text-sm opacity-70">
-                    Join LandConnect and start your Language Learning Journey!
-                  </p>
+                  <p className="text-sm opacity-70">Join LandConnect and start your Language Learning Journey!</p>
                 </div>
                 {/* Full Name */}
                 <div className="space-y-3">
@@ -106,7 +102,7 @@ const SignupPage = () => {
                     </label>
                     <input
                       type="password"
-                      placeholder="********"
+                      placeholder="••••••••"
                       className="input input-bordered w-full"
                       value={signupData.password}
                       onChange={(e) =>
@@ -117,27 +113,15 @@ const SignupPage = () => {
                       }
                       required
                     />
-                    <p className="text-xs opacity-70 mt-1">
-                      Password must be at least 6 characters long
-                    </p>
+                    <p className="text-xs opacity-70 mt-1">Password must be at least 6 characters long</p>
                   </div>
                   {/* Terms */}
                   <div className="form-control">
                     <label className="label cursor-pointer justify-start gap-2">
-                      <input
-                        type="checkbox"
-                        className="checkbox checkbox-sm"
-                        required
-                      />
+                      <input type="checkbox" className="checkbox checkbox-sm" required />
                       <span className="text-xs leading-tight">
-                        I agree to the{" "}
-                        <span className="text-primary hover:underline">
-                          terms of service
-                        </span>{" "}
-                        and{" "}
-                        <span className="text-primary hover:underline">
-                          privacy policy
-                        </span>
+                        I agree to the <span className="text-primary hover:underline">terms of service</span> and{" "}
+                        <span className="text-primary hover:underline">privacy policy</span>
                       </span>
                     </label>
                   </div>
@@ -146,9 +130,7 @@ const SignupPage = () => {
                 <button className="btn btn-primary w-full" type="submit">
                   {isPending ? (
                     <>
-                      <span className="loading loading-spinner loading-xs">
-                        Loading...
-                      </span>
+                      <span className="loading loading-spinner loading-xs">Loading...</span>
                     </>
                   ) : (
                     "Create Account"
@@ -173,20 +155,13 @@ const SignupPage = () => {
           <div className="max-w-md p-8">
             {/* Illustration */}
             <div className="relative aspect-square max-w-sm mx-auto">
-              <img
-                src="/i.png"
-                alt="Language connection illustration"
-                className="w-full h-full"
-              />
+              <img src="/i.png" alt="Language connection illustration" className="w-full h-full" />
             </div>
 
             <div className="text-center space-y-3 mt-6">
-              <h2 className="text-xl font-semibold">
-                Connect with language partners worldwide
-              </h2>
+              <h2 className="text-xl font-semibold">Connect with language partners worldwide</h2>
               <p className="opacity-70">
-                Practice conversations, make friends, and improve your language
-                skills together
+                Practice conversations, make friends, and improve your language skills together
               </p>
             </div>
           </div>
